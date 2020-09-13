@@ -10,12 +10,12 @@ public class Topic_02_Firefox_Chrome_Edge {
 	WebDriver driver;
 	static String a;
 	
-//	@Test
-//	public void Testcase_01_Run_Firefox() {
-//		driver = new FirefoxDriver();
-//		driver.get("https://www.facebook.com");
-//		driver.quit();
-//	}
+	@Test
+	public void Testcase_01_Run_Firefox() {
+		driver = new FirefoxDriver();
+		driver.get("https://www.facebook.com");
+		driver.quit();
+	}
 	
 	@Test
 	public void TestCase_02_Run_Chrome() {
@@ -36,18 +36,12 @@ public class Topic_02_Firefox_Chrome_Edge {
 	
 	@Test
 	public void TestCase_03_Run_Edge() {
-//		String projectFolder = System.getProperty("user.dir");
-//		System.setProperty("webdriver.chrome.driver", projectFolder+"/browserDrivers/chromedriver");
-		
-//		Relative 
+///		Relative 
 		System.setProperty("webdriver.edge.driver", "./browserDrivers/msedgedriver");
 		driver = new EdgeDriver();
 		
 		driver.get("https://www.facebook.com");
 		driver.quit();
-		
-		
-		
 		
 	}
 	

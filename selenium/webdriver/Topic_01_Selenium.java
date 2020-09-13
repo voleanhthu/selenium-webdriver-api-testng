@@ -45,6 +45,7 @@ public class Topic_01_Selenium {
 
 	@AfterClass
 	public void afterClass() {
+		System.out.println("Close driver....");
 		driver.quit();
 	}
 
