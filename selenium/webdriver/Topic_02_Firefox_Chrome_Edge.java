@@ -8,7 +8,6 @@ import org.testng.annotations.Test;
 
 public class Topic_02_Firefox_Chrome_Edge {
 	WebDriver driver;
-	static String a;
 	
 	@Test
 	public void Testcase_01_Run_Firefox() {
@@ -28,10 +27,6 @@ public class Topic_02_Firefox_Chrome_Edge {
 		
 		driver.get("https://www.facebook.com");
 		driver.quit();
-		
-		
-		
-		
 	}
 	
 	@Test
@@ -44,8 +39,4 @@ public class Topic_02_Firefox_Chrome_Edge {
 		driver.quit();
 		
 	}
-	
-
-	
-
 }
