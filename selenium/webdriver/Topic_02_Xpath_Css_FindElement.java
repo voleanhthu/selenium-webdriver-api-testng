@@ -3,6 +3,7 @@ package webdriver;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeClass;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -14,191 +15,191 @@ import org.testng.annotations.AfterClass;
 
 public class Topic_02_Xpath_Css_FindElement {
 	 WebDriver driver;
-	
-	 WebElement password;
+	 String firstName = "Test";
+	 String lastName = "Automation";
+	 String password = "123456789";
+	 String emailAddressString;
 	 
 	 
-//	 By
-	 By email = By.id("mail");
-	 By ageUnder18Xpath = By.id("under_18");
-//			 By.xpath("//label[text()='Age:']/following-sibling::label[text()='Under 18']");
-	 By education = By.id("edu");
+	 By myAccount = By.xpath("//div[@class='footer']//a[text()='My Account']");
+	 By emailElement = By.id("email");
+	 By passElement = By.id("pass");
+	 By loginElement = By.name("send");
   
   @BeforeClass
   public void beforeClass() {
 	  driver = new FirefoxDriver();
 	  driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	  driver.manage().window().maximize();
-	  
+//	  Access page
+	  driver.get("http://live.demoguru99.com/");
   }
   
   @Test
-  public void TC01_Check_Displayed_Elements() { 
-	  driver.get("https://automationfc.github.io/basic-form/index.html");
-//	  Check email field
-	  WebElement emailArea = driver.findElement(email);
-	  checkDisplayEnableOrDisableOfElement(emailArea.isDisplayed(), "Displayed");
-	  emailArea.sendKeys("AutomationTesting");
+  public void TC01_Login_Empty_Email_And_Password() { 
+//	  Click on link "My Account" to access Log in page
+	  driver.findElement(myAccount).click();
 	  
-//	  Check age - under 18 checkbox
-	  WebElement ageUnder18 = driver.findElement(ageUnder18Xpath);
-	  Assert.assertTrue(ageUnder18.isDisplayed());
-	  ageUnder18.click();
+//	  Send empty string to email and password
+	  driver.findElement(emailElement).sendKeys("");
+	  driver.findElement(passElement).sendKeys("");
 	  
-//	  Check education field
-	  Assert.assertTrue(driver.findElement(By.xpath("//label[text()='Education:']")).isDisplayed());
-	  WebElement educationArea = driver.findElement(education);
-	  checkDisplayEnableOrDisableOfElement(educationArea.isDisplayed(), "Displayed");
-	  educationArea.sendKeys("AutomationTesting");
+//	  Click Login
+	  driver.findElement(loginElement).click();
+	  
+//	  Verify error message display on 2 fields
+	  Assert.assertEquals(driver.findElement(By.id("advice-required-entry-email")).getText(),
+			  "This is a required field.");
+	  Assert.assertEquals(driver.findElement(By.id("advice-required-entry-pass")).getText(),
+			  "This is a required field.");
   }
   
+  @Test
+  public void TC02_Login_Invalid_Email() {
+//	  Click on link "My Account" to access Log in page
+	  driver.findElement(myAccount).click();
+	  
+//	  Send invalid email and valid password
+	  driver.findElement(emailElement).sendKeys("123456@123.456.67");
+	  driver.findElement(passElement).sendKeys("123456");
+	  
+//	  Click Login
+	  driver.findElement(loginElement).click();
+	  
+//	  Verify error message display
+	  Assert.assertEquals(driver.findElement(By.id("advice-validate-email-email")).getText(),
+			  "Please enter a valid email address. For example johndoe@domain.com.");
+  }
   
   @Test
-  public void TC02_Check_Enabled_Disabled_Elements() { 
-	  driver.get("https://automationfc.github.io/basic-form/index.html");
-//	  Check email field
-	  checkDisplayEnableOrDisableOfElement(driver.findElement(email).isEnabled(),"Enabled");
+  public void TC03_Login_Password_Less_Than_6Characters() {
+//	  Click on link "My Account" to access Log in page
+	  driver.findElement(myAccount).click();
 	  
-//	  Check age - under 18 checkbox
-	  checkDisplayEnableOrDisableOfElement(driver.findElement(ageUnder18Xpath).isEnabled(),"Enabled");
+//	  Send valid email and invalid password (less than 6 characters)
+	  driver.findElement(emailElement).sendKeys("athu983.at49@gmail.com");
+	  driver.findElement(passElement).sendKeys("123");
 	  
-//	  Check education field
-	  checkDisplayEnableOrDisableOfElement(driver.findElement(education).isEnabled(),"Enabled");
+//	  Click Login
+	  driver.findElement(loginElement).click();
 	  
-//	  Check Job Role 01
-	  checkDisplayEnableOrDisableOfElement(driver.findElements(
-			  By.xpath("//label[text()='Job Role 01 - Single Dropdown:']/following-sibling::select"))
-			  .get(0).isEnabled(),"Enabled");
+//	  Verify error message display
+	  Assert.assertEquals(driver.findElement(By.id("advice-validate-password-pass")).getText(),
+			  "Please enter 6 or more characters without leading or trailing spaces.");
+  }
+  
+  @Test
+  public void TC04_Login_Incorrect_Password() {
+//	  Click on link "My Account" to access Log in page
+	  driver.findElement(myAccount).click();
 	  
-//	  Check Job Role 02
-	  checkDisplayEnableOrDisableOfElement(
-			  driver.findElement(By.xpath("//label[text()='Job Role 02 - Multiple Dropdown:']/following-sibling::select[@multiple='multiple']"))
-			  .isEnabled(),"Enabled");
+//	  Send correct email and incorrect password
+	  driver.findElement(emailElement).sendKeys("automation@gmail.com");
+	  driver.findElement(passElement).sendKeys("123123123123123");
 	  
-//	  Check Interests (Development) checkbox
-	  checkDisplayEnableOrDisableOfElement(driver.findElement(
-			  By.id("development")).isEnabled(),"Enabled");
+//	  Click Login
+	  driver.findElement(loginElement).click();
 	  
-//	  Check Slider 01
-	  checkDisplayEnableOrDisableOfElement(
-			  driver.findElements(By.xpath("//label[text()='Slider 01:']/following-sibling::input"))
-			  .get(0).isEnabled(),"Enabled");
+//	  Verify error message display
+//	  Assert.assertNotNull(driver.findElement(By.xpath("//span[text()='Invalid login or password.']'")));
+	  Assert.assertEquals(driver.findElement(By.xpath("//li[@class='error-msg']//span")).getText(),"Invalid login or password.");
+  }
+  
+  @Test
+  public void TC04_Login_Incorrect_Email() {
+//	  Click on link "My Account" to access Log in page
+	  driver.findElement(myAccount).click();
 	  
+//	  Send incorrect email and correct password
+	  driver.findElement(emailElement).sendKeys("automation1@gmail.com");
+	  driver.findElement(passElement).sendKeys("123456");
+	  
+//	  Click Login
+	  driver.findElement(loginElement).click();
+	  
+//	  Verify error message display
+//	  Assert.assertNotNull(driver.findElement(By.xpath("//span[text()='Invalid login or password.']'")));
+	  Assert.assertEquals(driver.findElement(By.xpath("//li[@class='error-msg']//span")).getText(),"Invalid login or password.");
+  }
+  
+  private String getRandomEmail() {
+	 Random random = new Random();
+	  return "automationtestting"+random.nextInt(99999)+"@gmail.com";
+  }
+  
+  @Test
+  public void TC05_Create_New_Account() {
+//	  Click on link "My Account" to access Log in page
+	  driver.findElement(myAccount).click();
+	  
+//	  Click on button Create An Account
+	  driver.findElement(By.xpath("//span[text()='Create an Account']")).click();
+	  
+//	  Input First name
+	  driver.findElement(By.id("firstname")).sendKeys(firstName);
+	  
+//	  Input Last name
+	  driver.findElement(By.id("lastname")).sendKeys(lastName);
+	  
+//	  Input Email Address
+	  emailAddressString = getRandomEmail();
+	  driver.findElement(By.id("email_address")).sendKeys(emailAddressString);
+	  
+//	  Input Password
+	  driver.findElement(By.id("password")).sendKeys(password);
+	  
+//	  Input Confirm Password
+	  driver.findElement(By.id("confirmation")).sendKeys(password);
+	  
+//	  Click on Register button
+	  driver.findElement(By.xpath("//button[@title='Register']")).click();
+	  
+//	  Verify the successful message
+	  Assert.assertEquals(driver.findElement(By.xpath("//li[@class='success-msg']//span")).getText(),"Thank you for registering with Main Website Store.");
+	  
+//	  Verify new information on My Dashboard
+	  String information = driver.findElement(By.xpath("//h3[text()='Contact Information']/parent::div/following-sibling::div/p")).getText();
+	  
+	  Assert.assertTrue(information.contains(firstName)&&information.contains(lastName));
+	  
+//	  CLick on Account on the top of page
+	  driver.findElement(By.xpath("//div[contains(@class,'account-cart')]//span[text()='Account']")).click();
+	  
+//	  Click on Log Out
+	  driver.findElement(By.xpath("//a[text()='Log Out']")).click();
+	  
+//	  Check that we come back Home page
+	  Assert.assertTrue(driver.findElement(By.cssSelector("img[src$='logo.png']")).isDisplayed());
+  }
+  
+  @Test
+  public void TC06_LogIn_With_New_Email_And_Pasword() {
+//	  Click on link "My Account" to access Log in page
+	  driver.findElement(myAccount).click();
+	  
+//	  Input email and password
+	  driver.findElement(By.cssSelector("input[name='login[username]")).sendKeys(emailAddressString);
+	  driver.findElement(passElement).sendKeys(password);
+	  
+//	  Click on LogIn
+	  driver.findElement(loginElement).click();
+	  
+//	  Verify displayed information
+	  Assert.assertTrue(driver.findElement(By.xpath("//div[@class='page-title']/h1[text()='My Dashboard']")).isDisplayed());
+	  
+	  Assert.assertEquals(driver.findElement(By.xpath("//div[@class='welcome-msg']//strong")).getText(),"Hello, "+firstName+" "+lastName+"!");
 
+	  String information = driver.findElement(By.xpath("//h3[text()='Contact Information']/parent::div/following-sibling::div/p")).getText();
+	  System.out.println("INFOR..."+information);
+	  Assert.assertTrue(information.contains(firstName)&&information.contains(lastName));
 	  
-//	  Check Password
-	  checkDisplayEnableOrDisableOfElement(!driver.findElement(
-			  By.id("password")).isEnabled(),"Disabled");
-	  
-//	  Check Age - Radio button is disabled
-	  checkDisplayEnableOrDisableOfElement(!driver.findElement(
-			  By.id("radio-disabled")).isEnabled(),"Disabled");
-	  
-//	  Check Biography
-	  checkDisplayEnableOrDisableOfElement(!driver.findElement(
-			  By.xpath("//textarea[@name='user_bio']")).isEnabled(),"Disabled");
-	
-//	  Check Job Role 03
-	  checkDisplayEnableOrDisableOfElement(!driver.findElement(
-			  By.xpath("//label[text()='Job Role 03 - Disable Dropdown:']/following-sibling::select"))
-			  .isEnabled(),"Disabled");
-	  
-//	  Check Interests is disabled
-	  checkDisplayEnableOrDisableOfElement(!driver.findElement(
-			  By.id("check-disbaled"))
-			  .isEnabled(),"Disabled");
-	  
-	  
-//	  Check Slider 02 disabled
-	  checkDisplayEnableOrDisableOfElement(!driver.findElement(
-			  By.xpath("//label[text()='Slider 02 (Disabled):']/following-sibling::input"))
-			  .isEnabled(),"Disabled");
-	
-	  
+//	  String email = driver.findElement(By.xpath("//h3[text()='Contact Information']/parent::div/following-sibling::div/p/br")).getText();
+//	  
+//	  Assert.assertTrue(information.contains(firstName)&&information.contains(lastName));
+
   }
   
-  @Test
-  public void TC_03_Check_Selected_Elements() {
-	  driver.get("https://automationfc.github.io/basic-form/index.html");
-//	  select age - under 18 radiobutton
-	  WebElement ageRadioButton = driver.findElement(ageUnder18Xpath);
-	  ageRadioButton.click();
-	  checkDisplayEnableOrDisableOfElement(ageRadioButton.isSelected(), "Selected");
-	  
-//	  select Language - Java
-	  WebElement languageJava = driver.findElement(By.id("java"));
-	  languageJava.click();
-	  checkDisplayEnableOrDisableOfElement(languageJava.isSelected(), "Selected");
-	  
-//	  Unselect language java checkbox
-	  languageJava.click();
-	  checkDisplayEnableOrDisableOfElement(!languageJava.isSelected(), "UnSelected");
-	  
-  }
-  
-  @Test
-  public void TC_04_Register_Function_At_MailChimp() throws InterruptedException {
-	  driver.get("https://login.mailchimp.com/signup/");
-	  
-//	  Enter email and username
-	  driver.findElement(By.id("email")).sendKeys("automationfc.vn@gmail.com");
-	  driver.findElement(By.id("new_username")).sendKeys("Automation");
-	  
-//	  Enter password
-	  
-	  password = driver.findElement(By.id("new_password"));
-	  password.sendKeys("1");
-	  Assert.assertNotNull(driver.findElement(By.xpath("//li[contains(@class,'number-char completed')]")));
-	  
-	 
-	  
-	  password.sendKeys("a");
-	  Assert.assertNotNull(driver.findElement(By.xpath("//li[contains(@class,'lowercase-char completed')]")));
-	  
-	  
-	  password.sendKeys("A");
-	  Assert.assertNotNull(driver.findElement(By.xpath("//li[contains(@class,'uppercase-char completed')]")));
-	 
-	  
-	  password.sendKeys("$");
-	  Assert.assertNotNull(driver.findElement(By.xpath("//li[contains(@class,'special-char completed')]")));
-	  
-	  
-	  password.sendKeys("567890");
-	  Assert.assertTrue(!driver.findElement(By.xpath("//li[contains(@class,'8-char')]")).isDisplayed());
-	  
-	  
-	  WebElement signUpButton = driver.findElement(By.id("create-account"));
-	  Assert.assertTrue(signUpButton.isEnabled());
-	  
-	  password.clear();
-	  password.sendKeys("123");
-	  signUpButton = driver.findElement(By.id("create-account"));
-	  Assert.assertTrue(!signUpButton.isEnabled());
-	  
-	  WebElement checkBox = driver.findElement(By.xpath("//input[@name='marketing_newsletter']"));
-	  Assert.assertTrue(!checkBox.isSelected());
-	  checkBox.click();
-	  checkBox = driver.findElement(By.xpath("//input[@name='marketing_newsletter']"));
-	  Assert.assertTrue(checkBox.isSelected());
-	  
-  }
-  
-  
-  
-  private void checkDisplayEnableOrDisableOfElement(boolean flag, String title) {
-	  Assert.assertTrue(flag);
-	  System.out.println(checkIfElementIsDisplayed(flag,title));
-  }
-  
-  private String checkIfElementIsDisplayed(boolean flag, String tag) {
-	  if(flag) {
-		  return "Element is "+tag;
-	  }else {
-		  return "Element is not "+tag;
-	  }
-  }
-  
+ 
  
 
   @AfterClass
