@@ -32,45 +32,45 @@ public class Topic_08_Alert {
 		  driver.manage().window().maximize();
 	}
 
-//	@Test
-//	public void TC_01_Accept_Alert() {
-//		driver.get("https://automationfc.github.io/basic-form/index.html");
-//		
-//		driver.findElement(By.xpath("//button[text()='Click for JS Alert']")).click();
-//		
-////		Wait until alert appear
-//		webDriverWait.until(ExpectedConditions.alertIsPresent());
-//		
-////		Switch to alert
-//		alert = driver.switchTo().alert();
-//		
-//		Assert.assertEquals(alert.getText(), "I am a JS Alert");
-//		
-//		alert.accept();
-//		
-//		Assert.assertEquals(driver.findElement(resultBy).getText(), "You clicked an alert successfully");
-//		
-//	}
-//	
-//	@Test
-//	public void TC_02_Dismiss_Alert() {
-//		driver.get("https://automationfc.github.io/basic-form/index.html");
-//		
-//		driver.findElement(By.xpath("//button[text()='Click for JS Confirm']")).click();
-//		
-////		Wait until alert appear
-//		webDriverWait.until(ExpectedConditions.alertIsPresent());
-//		
-////		Switch to alert
-//		alert = driver.switchTo().alert();
-//		
-//		Assert.assertEquals(alert.getText(), "I am a JS Confirm");
-//		
-//		alert.dismiss();
-//		
-//		Assert.assertEquals(driver.findElement(resultBy).getText(), "You clicked: Cancel");
-//		
-//	}
+	@Test
+	public void TC_01_Accept_Alert() {
+		driver.get("https://automationfc.github.io/basic-form/index.html");
+		
+		driver.findElement(By.xpath("//button[text()='Click for JS Alert']")).click();
+		
+//		Wait until alert appear
+		webDriverWait.until(ExpectedConditions.alertIsPresent());
+		
+//		Switch to alert
+		alert = driver.switchTo().alert();
+		
+		Assert.assertEquals(alert.getText(), "I am a JS Alert");
+		
+		alert.accept();
+		
+		Assert.assertEquals(driver.findElement(resultBy).getText(), "You clicked an alert successfully");
+		
+	}
+	
+	@Test
+	public void TC_02_Dismiss_Alert() {
+		driver.get("https://automationfc.github.io/basic-form/index.html");
+		
+		driver.findElement(By.xpath("//button[text()='Click for JS Confirm']")).click();
+		
+//		Wait until alert appear
+		webDriverWait.until(ExpectedConditions.alertIsPresent());
+		
+//		Switch to alert
+		alert = driver.switchTo().alert();
+		
+		Assert.assertEquals(alert.getText(), "I am a JS Confirm");
+		
+		alert.dismiss();
+		
+		Assert.assertEquals(driver.findElement(resultBy).getText(), "You clicked: Cancel");
+		
+	}
 	
 	@Test
 	public void TC_03_Prompt_Alert() {
@@ -96,23 +96,23 @@ public class Topic_08_Alert {
 		
 	}
 	
-//	@Test
-//	public void TC_04_Authentication_Alert() {
-//		driver.get("http://"+userName+":"+password+"@the-internet.herokuapp.com/basic_auth");
-//		
-//		Assert.assertTrue(driver.findElement(By.xpath("//p[contains(text(),'Congratulations! You must have the proper credentials.')]")).isDisplayed());
-//	}
-//	
-//	@Test
-//	public void TC_05_Authentication_Alert() {
-//		driver.get("http://the-internet.herokuapp.com");
-//		
-//		String basicAuthenUrl = driver.findElement(By.xpath("//a[text()='Basic Auth']")).getAttribute("href");
-//		
-//		driver.get(getAuthenticationUrl(basicAuthenUrl, userName, password));
-//		
-//		Assert.assertTrue(driver.findElement(By.xpath("//p[contains(text(),'Congratulations! You must have the proper credentials.')]")).isDisplayed());
-//	}
+	@Test
+	public void TC_04_Authentication_Alert() {
+		driver.get("http://"+userName+":"+password+"@the-internet.herokuapp.com/basic_auth");
+		
+		Assert.assertTrue(driver.findElement(By.xpath("//p[contains(text(),'Congratulations! You must have the proper credentials.')]")).isDisplayed());
+	}
+	
+	@Test
+	public void TC_05_Authentication_Alert() {
+		driver.get("http://the-internet.herokuapp.com");
+		
+		String basicAuthenUrl = driver.findElement(By.xpath("//a[text()='Basic Auth']")).getAttribute("href");
+		
+		driver.get(getAuthenticationUrl(basicAuthenUrl, userName, password));
+		
+		Assert.assertTrue(driver.findElement(By.xpath("//p[contains(text(),'Congratulations! You must have the proper credentials.')]")).isDisplayed());
+	}
 	
 	private String getAuthenticationUrl(String oldUrl, String username, String password) {
 		String[] urlValue = oldUrl.split("//");
@@ -120,16 +120,8 @@ public class Topic_08_Alert {
 	}
 	
 	
-	private void sleepInSeconds(int seconds) {
-		try {
-			Thread.sleep(seconds*1000);
-		}catch(Exception e) {
-			
-		}
+	@AfterClass
+	public void afterClass() {
+		  driver.quit();
 	}
-
-@AfterClass
-public void afterClass() {
-	  driver.quit();
-}
 }
