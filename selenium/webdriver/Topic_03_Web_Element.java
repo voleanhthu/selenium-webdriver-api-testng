@@ -13,11 +13,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class Topic_03_Web_Element {
-
 	WebDriver driver;
-	
 	 WebElement password;
-	 
 	 
 //	 By
 	 By email = By.id("mail");

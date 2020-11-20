@@ -118,7 +118,7 @@ public class Topic_08_Alert {
 		String[] urlValue = oldUrl.split("//");
 		return urlValue[0]+"//"+username+":"+password+"@"+urlValue[1];
 	}
-	
+	//AUTOIT
 	
 	@AfterClass
 	public void afterClass() {

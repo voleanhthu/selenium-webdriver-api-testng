@@ -108,9 +108,6 @@ public void TC_04_VueJS() throws InterruptedException {
 		getText(),"Third Option");
 }
 
-
-
-
 @Test
 public void TC_05_Editable() throws InterruptedException {
 	driver.get("http://indrimuska.github.io/jquery-editable-select/");
@@ -246,9 +243,6 @@ private boolean areItemsSelected(String[] itemSelectedText, By itemSelectedBy) {
 	
 }
 
-
-
-
 private void sleepInSeconds(int seconds) {
 	try {
 		Thread.sleep(seconds*1000);
@@ -261,14 +255,6 @@ private String getAngularSelectedValueByJS() {
 	return (String)jsExecutor.executeScript
 			("return document.querySelector(\"ejs-dropdownlist[id='games'] option\").text");
 }
-
-
-
-
-
-
-
-
 
 @AfterClass
 public void afterClass() {
