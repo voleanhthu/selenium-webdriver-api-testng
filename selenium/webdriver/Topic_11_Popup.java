@@ -32,58 +32,58 @@ public class Topic_11_Popup {
 		  
 	}
 	
-//	@Test
-//	public void TC_01_Fixed_Popup() {
-//		driver.get("https://www.zingpoll.com/");
-//		
-//		driver.findElement(By.id("Loginform")).click();
-//		
-//		By formBy = By.xpath("//form[@id='loginForm']");
-////		In case network is so bad, using expicitWait to handle this time
-//		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(formBy));
-//		Assert.assertTrue(driver.findElement(formBy).isDisplayed());
-//		
-//		driver.findElement(By.xpath("//div[@id='Login']//button[@class='close']")).click();
-//		
-////		Wait until element is invisible
-//		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(formBy));
-//		Assert.assertFalse(driver.findElement(formBy).isDisplayed());
-//	}
-//	
-//	@Test
-//	public void TC_02_Fixed_Popup() {
-//		driver.get("https://bni.vn/");
-//		
-//		By formBy = By.id("sgpb-popup-dialog-main-div");
-////		In case network is so bad, using expicitWait to handle this time
-//		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(formBy));
-//		Assert.assertTrue(driver.findElement(formBy).isDisplayed());
-//		
-//		driver.findElement(By.xpath("//img[@alt='Close']")).click();
-//		
-////		Wait until element is invisible
-//		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(formBy));
-//		Assert.assertFalse(driver.findElement(formBy).isDisplayed());
-//	}
-//	
-//	@Test
-//	public void TC_02_Fixed_Popup2() {
-//		driver.get("https://bni.vn/");
-//		
-//		By formBy = By.id("sgpb-popup-dialog-main-div");
-////		In case network is so bad, using expicitWait to handle this time
-//		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(formBy));
-//		Assert.assertTrue(driver.findElement(formBy).isDisplayed());
-//		
-//		driver.findElement(By.xpath("//input[@value='JOIN WITH US']")).click();
-//		
-//		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//img[@alt='Close']")));
-//		driver.findElement(By.xpath("//img[@alt='Close']")).click();
-//		
-////		Wait until element is invisible
-//		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(formBy));
-//		Assert.assertFalse(driver.findElement(formBy).isDisplayed());
-//	}
+	@Test
+	public void TC_01_Fixed_Popup() {
+		driver.get("https://www.zingpoll.com/");
+		
+		driver.findElement(By.id("Loginform")).click();
+		
+		By formBy = By.xpath("//form[@id='loginForm']");
+//		In case network is so bad, using expicitWait to handle this time
+		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(formBy));
+		Assert.assertTrue(driver.findElement(formBy).isDisplayed());
+		
+		driver.findElement(By.xpath("//div[@id='Login']//button[@class='close']")).click();
+		
+//		Wait until element is invisible
+		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(formBy));
+		Assert.assertFalse(driver.findElement(formBy).isDisplayed());
+	}
+	
+	@Test
+	public void TC_02_Fixed_Popup() {
+		driver.get("https://bni.vn/");
+		
+		By formBy = By.id("sgpb-popup-dialog-main-div");
+//		In case network is so bad, using expicitWait to handle this time
+		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(formBy));
+		Assert.assertTrue(driver.findElement(formBy).isDisplayed());
+		
+		driver.findElement(By.xpath("//img[@alt='Close']")).click();
+		
+//		Wait until element is invisible
+		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(formBy));
+		Assert.assertFalse(driver.findElement(formBy).isDisplayed());
+	}
+	
+	@Test
+	public void TC_02_Fixed_Popup2() {
+		driver.get("https://bni.vn/");
+		
+		By formBy = By.id("sgpb-popup-dialog-main-div");
+//		In case network is so bad, using expicitWait to handle this time
+		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(formBy));
+		Assert.assertTrue(driver.findElement(formBy).isDisplayed());
+		
+		driver.findElement(By.xpath("//input[@value='JOIN WITH US']")).click();
+		
+		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//img[@alt='Close']")));
+		driver.findElement(By.xpath("//img[@alt='Close']")).click();
+		
+//		Wait until element is invisible
+		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(formBy));
+		Assert.assertFalse(driver.findElement(formBy).isDisplayed());
+	}
 	
 	@Test
 	public void TC_03_Random_Popup_In_DOM() {
@@ -135,25 +135,25 @@ public class Topic_11_Popup {
 	}
 	
 	
-//	@Test
-//	public void TC_04_Random_Popup_Not_In_DOM() {
-//		driver.get("https://shopee.vn/");
-//		
-//		sleepInSeconds(5);
-//		List<WebElement> listOfImageBanner = driver.findElements(By.xpath("//img[@alt='home_popup_banner']"));
-//		
-//		if(listOfImageBanner.size()>0 && listOfImageBanner.get(0).isDisplayed()) {
-////			Close popup
-//			System.out.println("Popup displays");
-//			explicitWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='shopee-popup__close-btn']"))).click();
-//		}else {
-//			System.out.println("Popup does not display");
-//		}
-//			
-//		sleepInSeconds(2);
-//		
-//
-//	}
+	@Test
+	public void TC_04_Random_Popup_Not_In_DOM() {
+		driver.get("https://shopee.vn/");
+		
+		sleepInSeconds(5);
+		List<WebElement> listOfImageBanner = driver.findElements(By.xpath("//img[@alt='home_popup_banner']"));
+		
+		if(listOfImageBanner.size()>0 && listOfImageBanner.get(0).isDisplayed()) {
+//			Close popup
+			System.out.println("Popup displays");
+			explicitWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='shopee-popup__close-btn']"))).click();
+		}else {
+			System.out.println("Popup does not display");
+		}
+			
+		sleepInSeconds(2);
+		
+
+	}
 	
 	private void sleepInSeconds(int seconds) {
 		try {
