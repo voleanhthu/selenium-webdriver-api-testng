@@ -19,12 +19,16 @@ import org.testng.annotations.Test;
 public class Topic_16_Wait_PartII {
 	WebDriver driver;
 	WebDriverWait explicitWait;
+	
+	
+	String projectLocation = System.getProperty("user.dir");
+	String imageLocation = projectLocation+"/image/image.jpeg";
 
 	@BeforeClass
 	public void beforeClass() {
 		driver = new  FirefoxDriver();
 //		Apply only for findElement/finElements
-		explicitWait = new WebDriverWait(driver, 3);
+		explicitWait = new WebDriverWait(driver, 5);
 //		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 
 	}
@@ -57,24 +61,15 @@ public class Topic_16_Wait_PartII {
 	
 	@Test
 	public void TC_07_ExplicitWait() {
-		driver.get("https://gofile.io/?t=uploadFiles");
+		driver.get("https://www.file.io/");
 		
-//		Wait for date picker presence
-		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_ContentPlaceholder1_RadCalendar1")));
+		driver.findElement(By.xpath("//input[@type='file']")).sendKeys(imageLocation);;
 		
-//		Before selecting any day, the selected date box is different
-		Assert.assertEquals(driver.findElement(By.id("ctl00_ContentPlaceholder1_Label1")).getText(), "No Selected Dates to display.");
+		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("progress-button-total")));
 		
+		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("download-url")));
 		
-		explicitWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='16']/parent::td"))).click();
-		
-		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='16']/parent::td[@class='rcSelected']")));
-		
-		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class='raDiv']/parent::div[not(@style='display:none;')]")));
-		
-		
-		
-		Assert.assertEquals(driver.findElement(By.id("ctl00_ContentPlaceholder1_Label1")).getText(), "Wednesday, December 16, 2020");
+		driver.findElement(By.id("download-url")).click();
 		
 		
 		
