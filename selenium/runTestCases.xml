@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+	<group>
+		<run>
+			<include name="api">
+			</include>
+		</run>
+	</group>
+	<test name="Test">
+		<classes>
+			<class name="testng.Topic_01_Annotations" />
+			<class name="testng.Topic_02_Group" />
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->
