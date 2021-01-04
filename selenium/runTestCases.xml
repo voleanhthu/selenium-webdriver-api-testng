@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" parallel="false">
-	<group>
+	<groups>
 		<run>
 			<include name="api">
 			</include>
 		</run>
-	</group>
+	</groups>
 	<test name="Test">
 		<classes>
 			<class name="testng.Topic_01_Annotations" />
